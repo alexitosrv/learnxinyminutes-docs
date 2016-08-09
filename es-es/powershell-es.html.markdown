@@ -117,7 +117,7 @@ switch($val) {
   { $_ -eq 42 }           { "La respuesta es 42"; break }
   '20'                    { "Exactamente 20"; break }
   { $_ -like 's*' }       { "No distingue entre mayúsculas/minúsculas"; break }
-  { $_ -clike 's*'}       { "clike, ceq, cne para ser diferenciar casos entre mayúsculas/mninúsculas"; break }
+  { $_ -clike 's*'}       { "clike, ceq, cne para diferenciar el caso entre mayúscula/mninúscula"; break }
   { $_ -notmatch '^.*$'}  { "Emparejamiento de expresiones regulares. cnotmatch, cnotlike, ..."; break }
   { 'x' -contains 'x'}    { "FALSO! -contains es para listas!"; break }
   default                 { "Otros" }
@@ -169,8 +169,8 @@ ls -fi *.txt -n # -f no se puede porque también existe -Force
 ls | Where-Object { $_.Name -match 'c' } | Export-CSV exportado.txt
 ls | ? { $_.Name -match 'c' } | ConvertTo-HTML | Out-File exportado.html
 
-# Si se confunde con la tubería use `Get-Member` para revisar
-# los métodos y propiedades de los objetos de la tubería:
+# Si se confunde con la tubería, use `Get-Member` para revisar 
+# los métodos y propiedades de los objetos que intervienen en la tubería:
 ls | Get-Member
 Get-Date | gm
 
@@ -187,7 +187,7 @@ Get-EventLog Application -After (Get-Date).AddHours(-2) | Format-List
 	-End { "Terminando: $counter" }
 
 # El siguiente comando ps (alias de Get-Process) devuelve una tabla con 3 columnas
-# La tercera columan es el valor de memoria virtual en MB y usando 2 dígitos decimales
+# La tercera columna es el valor de memoria virtual en MB y usando 2 dígitos decimales
 # Las columnas calculadas pueden escribirse más extensamente como:
 # `@{name='lbl';expression={$_}`
 ps | Format-Table ID,Name,@{n='VM(MB)';e={'{0:n2}' -f ($_.VM / 1MB)}} -autoSize
